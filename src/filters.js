@@ -83,9 +83,6 @@ filters.key = function (handler, key) {
     if (!handler) return
     if (key === 'shiftEnter') { 
         var code = keyCodes['enter']
-        if (!code) {
-            code = parseInt(key, 10)
-        }
         return function (e) {
             if (e.keyCode === code && e.shiftKey) {
                 return handler.call(this, e)
