@@ -110,8 +110,14 @@ module.exports = {
                     self.set()
                 }
             }
+            self.onEnter = function (e) {
+                if (e.keyCode === 13) {
+                    self.set()
+                }
+            }
             el.addEventListener('cut', self.onCut)
             el.addEventListener('keyup', self.onDel)
+            el.addEventListener('keyup', self.onEnter)
         }
     },
 
@@ -169,6 +175,7 @@ module.exports = {
         if (isIE9) {
             el.removeEventListener('cut', this.onCut)
             el.removeEventListener('keyup', this.onDel)
+            el.removeEventListener('keyup', this.onEnter)
         }
     }
 }
