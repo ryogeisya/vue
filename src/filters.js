@@ -94,6 +94,9 @@ filters.key = function (handler, key) {
             code = parseInt(key, 10)
         }
         return function (e) {
+            if (e.keyCode === 13 && e.shiftKey) { 
+                return
+            }
             if (e.keyCode === code) {
                 return handler.call(this, e)
             }
