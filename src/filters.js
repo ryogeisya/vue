@@ -81,25 +81,13 @@ var keyCodes = {
 
 filters.key = function (handler, key) {
     if (!handler) return
-    if (key === 'shiftEnter') { 
-        var code = keyCodes['enter']
-        return function (e) {
-            if (e.keyCode === code && e.shiftKey) {
-                return handler.call(this, e)
-            }
-        }
-    } else { 
-        var code = keyCodes[key]
-        if (!code) {
-            code = parseInt(key, 10)
-        }
-        return function (e) {
-            if (e.keyCode === 13 && e.shiftKey) { 
-                return
-            }
-            if (e.keyCode === code) {
-                return handler.call(this, e)
-            }
+    var code = keyCodes[key]
+    if (!code) {
+        code = parseInt(key, 10)
+    }
+    return function (e) {
+        if (e.keyCode === code) {
+            return handler.call(this, e)
         }
     }
 }
