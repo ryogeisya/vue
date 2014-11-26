@@ -1,5 +1,6 @@
 var utils = require('../utils'),
     isIE9 = navigator.userAgent.indexOf('MSIE 9.0') > 0,
+    isIE11 = navigator.userAgent.indexOf('Trident') > 0,
     filter = [].filter
 
 /**
@@ -56,6 +57,13 @@ module.exports = {
         }
         self.cUnlock = function () {
             compositionLock = false
+
+            // in IE11 the "compositionend" event fires AFTER
+            // the "input" event, so the input handler is blocked
+            // at the end... have to call it here.
+            if (isIE11) { 
+              self._set()
+            }
         }
         el.addEventListener('compositionstart', this.cLock)
         el.addEventListener('compositionend', this.cUnlock)
