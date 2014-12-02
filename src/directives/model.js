@@ -62,7 +62,13 @@ module.exports = {
             // the "input" event, so the input handler is blocked
             // at the end... have to call it here.
             if (isIE11) { 
+              self.lock = true
+
               self._set()
+
+              utils.nextTick(function () {
+                  self.lock = false
+              })
             }
         }
         el.addEventListener('compositionstart', this.cLock)
