@@ -162,6 +162,42 @@ filters.orderBy = function (arr, sortKey, reverseKey) {
 
 filters.orderBy.computed = true
 
+/**
+ *  Sort fitler empty last for v-repeat
+ */
+filters.orderEmptyLastBy = function (arr, sortKey, reverseKey) {
+
+    var key = stripQuotes(sortKey) || this.$get(sortKey)
+    if (!key) return arr
+
+    // convert object to array
+    if (!Array.isArray(arr)) {
+        arr = utils.objectToArray(arr)
+    }
+
+    var order = 1
+    if (reverseKey) {
+        if (reverseKey === '-1') {
+            order = -1
+        } else if (reverseKey.charAt(0) === '!') {
+            reverseKey = reverseKey.slice(1)
+            order = this.$get(reverseKey) ? 1 : -1
+        } else {
+            order = this.$get(reverseKey) ? -1 : 1
+        }
+    }
+
+    // sort on a copy to avoid mutating original array
+    return arr.slice().sort(function (a, b) {
+        a = get(a, key)
+        b = get(b, key)
+        return a === "" ? -order : b === "" ? -order : a === b ? 0 : a > b ? order : -order
+    })
+
+}
+
+filters.orderEmptyLastBy.computed = true
+
 // Array filter helpers -------------------------------------------------------
 
 /**
