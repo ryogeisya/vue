@@ -191,7 +191,27 @@ filters.orderEmptyLastBy = function (arr, sortKey, reverseKey) {
     return arr.slice().sort(function (a, b) {
         a = get(a, key)
         b = get(b, key)
-        return a === "" ? -order : b === "" ? -order : a === b ? 0 : a > b ? order : -order
+
+        var r = -1,
+           aa = a == "" ? undefined : a,
+           bb = b == "" ? undefined : b,
+           careabout = order > 0 ? aa : bb
+        ;
+
+        if (!isNaN(parseInt(aa))) { 
+          aa = parseInt(aa)
+        }
+
+        if (!isNaN(parseInt(bb))) { 
+          bb = parseInt(bb)
+        }
+
+        if(aa == bb){
+          r = 0;
+        }else if(aa > bb || careabout == undefined){
+          r = 1
+        }
+        return r;
     })
 
 }
