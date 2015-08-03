@@ -198,6 +198,7 @@ filters.orderEmptyLastBy = function (arr, sortKey, reverseKey) {
            careabout = order > 0 ? aa : bb
         ;
 
+        /*
         if (!isNaN(parseInt(aa))) { 
           aa = parseInt(aa)
         }
@@ -205,6 +206,7 @@ filters.orderEmptyLastBy = function (arr, sortKey, reverseKey) {
         if (!isNaN(parseInt(bb))) { 
           bb = parseInt(bb)
         }
+        */
 
         if(aa == bb){
           r = 0;
